@@ -11,11 +11,9 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash                       \
  && pecl install xdebug-2.5.5                                                  \
  && docker-php-ext-enable xdebug                                               \
  && curl -sLo checksum 'https://composer.github.io/installer.sha384sum'        \
- && curl -o - 'https://getcomposer.org/installer'                              \
- |  tee composer-setup.php                                                     \
- |  sha384sum -c checksum                                                      \
- && rm checksum                                                                \
- || ( rm -f checksum composer-setup.php && false )                             \
+ && curl -sLo composer-setup.php 'https://getcomposer.org/installer'           \
+ && sha384sum -c checksum                                                      \
+ && rm checksum || ( rm -f checksum composer-setup.php && false )              \
  && php composer-setup.php --install-dir=/usr/local/bin --filename=composer    \
  && php -r "unlink('composer-setup.php');"                                     \
  && composer self-update --no-interaction
