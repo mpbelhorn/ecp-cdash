@@ -1,0 +1,7 @@
+kind: ImageStream
+apiVersion: v1
+metadata:
+  labels:
+    app: ecp-cdash
+  name: ecp-cdash
+spec: {}

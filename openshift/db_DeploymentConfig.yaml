@@ -1,0 +1,46 @@
+kind: DeploymentConfig
+apiVersion: v1
+metadata:
+  labels:
+    app: ecp-cdash-db
+  name: ecp-cdash-db
+spec:
+  replicas: 1
+  selector:
+    app: ecp-cdash-db
+    deploymentconfig: ecp-cdash-db
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      labels:
+        app: ecp-cdash-db
+        deploymentconfig: ecp-cdash-db
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        - name: MYSQL_DATABASE
+          value: cdash
+        - name: MYSQL_ROOT_HOST
+          value: '%'
+        - name: MYSQL_ROOT_PASSWORD
+        image: docker-registry.default.svc:5000/openshift/mysql:5.7
+        name: ecp-cdash-db
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        resources: {}
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - ecp-cdash-db
+      from:
+        kind: ImageStreamTag
+        name: mysql:5.7
+        namespace: openshift
+    type: ImageChange

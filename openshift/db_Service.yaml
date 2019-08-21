@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: ecp-cdash-db
+  name: ecp-cdash-db
+spec:
+  ports:
+  - name: 3306-tcp
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    app: ecp-cdash-db
+    deploymentconfig: ecp-cdash-db

@@ -1,0 +1,33 @@
+kind: BuildConfig
+apiVersion: v1
+metadata:
+  labels:
+    app: ecp-cdash
+  name: ecp-cdash
+spec:
+  runPolicy: "Serial"
+  triggers:
+    - type: GitHub
+      github:
+        secret: Lls9a-JI6_NKfrJ7xNZH
+    - type: Generic
+      generic:
+        secret: Q4VnmsrhI_5RxWZFn_zk
+    - type: ConfigChange
+    - type: ImageChange
+  source:
+    git:
+      ref: master
+      uri: https://github.com/Kitware/CDash.git
+    contextDir: "CDash"
+  strategy:
+    dockerStrategy:
+      dockerfilePath: "./docker/cdash.docker"
+  output:
+    to:
+      kind: ImageStreamTag
+      name: ecp-cdash:latest
+  postCommit: {}
+  resources: {}
+
+

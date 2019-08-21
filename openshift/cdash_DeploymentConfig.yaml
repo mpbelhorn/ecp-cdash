@@ -1,0 +1,51 @@
+kind: DeploymentConfig
+apiVersion: v1
+metadata:
+  labels:
+    app: ecp-cdash
+  name: ecp-cdash
+spec:
+  replicas: 1
+  selector:
+    app: ecp-cdash
+    deploymentconfig: ecp-cdash
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      labels:
+        app: ecp-cdash
+        deploymentconfig: ecp-cdash
+    spec:
+      containers:
+      - env:
+        - name: CDASH_ROOT_ADMIN_PASS
+          value: secret
+        - name: CDASH_STATIC_USERS
+          value: |
+            USER jdoe@acme.com jdoe_secret
+              John Doe "ACME Inc."
+            ADMIN admin@example.org admin_secret
+              Admin User "Example Foundation"
+            donotreply@example.org oldsecret newsecret
+            strange.name@gmail.com strange_secret
+            INFO Str@nge N@me "Str@nge Rese@rch Gr0up LLC."
+            DELETE remove.this.user@example.org delete_secret
+
+        image: ecp-cdash:latest
+        name: ecp-cdash
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - ecp-cdash
+      from:
+        kind: ImageStreamTag
+        name: ecp-cdash:latest
+    type: ImageChange
