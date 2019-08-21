@@ -11,9 +11,9 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash                       \
  && pecl install xdebug-2.5.5                                                  \
  && docker-php-ext-enable xdebug                                               \
  && (                                                                          \
-      echo '544e09ee 996cdf60 ece3804a bc52599c'                               \
-    ; echo '22b1f40f 4323403c 44d44fdf dd586475'                               \
-    ; echo 'ca9813a8 58088ffb c1f233e9 b180f061'                               \
+      echo 'a5c698ff e4b8e849 a443b120 cd5ba380'                               \
+    ; echo '43260d5c 4023dbf9 3e155887 1f1f07f5'                               \
+    ; echo '8274fc6f 4c93bcfd 858c6bd0 775cd8d1'                               \
     ) | tr -d "\\n " | sed 's/$/  -/g' > checksum                              \
  && curl -o - 'https://getcomposer.org/installer'                              \
  |  tee composer-setup.php                                                     \
