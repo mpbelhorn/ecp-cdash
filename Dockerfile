@@ -1,8 +1,8 @@
-FROM php:7.0-apache
+FROM php:7.3-apache
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash                       \
  && apt-get install -y git libbz2-dev libfreetype6-dev libjpeg62-turbo-dev     \
-    libmcrypt-dev libpng12-dev libpq-dev libxslt-dev libxss1 nodejs unzip wget \
+    libmcrypt-dev libpng-dev libpq-dev libxslt-dev libxss1 nodejs unzip wget   \
     zip                                                                        \
  && docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql               \
  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/              \
