@@ -24,7 +24,6 @@ RUN mkdir -p /var/www                                             \
  && cd /var/www/cdash                                             \
  && composer install --no-interaction --no-progress --prefer-dist \
  && npm install                                                   \
- && chmod 777 backup log public/rss public/upload                 \
  && rm -rf /var/www/html                                          \
  && ln -s /var/www/cdash/public /var/www/html
 
