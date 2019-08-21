@@ -33,7 +33,7 @@ RUN chmod +x /container-entrypoint.sh
 WORKDIR /var/www/cdash
 EXPOSE 80
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5m \
+HEALTHCHECK --interval=30s --timeout=5s \
   CMD ["curl", "-f", "http://localhost/viewProjects.php"]
 
 ENTRYPOINT ["/bin/bash", "/container-entrypoint.sh"]
