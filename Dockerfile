@@ -34,6 +34,6 @@ WORKDIR /var/www/cdash
 EXPOSE 80
 
 HEALTHCHECK --interval=30s --timeout=5s \
-  CMD ["curl", "-f", "http://localhost/viewProjects.php"]
+    CMD curl -f http://localhost/viewProjects.php || exit 1
 
 ENTRYPOINT ["/bin/bash", "/container-entrypoint.sh"]
